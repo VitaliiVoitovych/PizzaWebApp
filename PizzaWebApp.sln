@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33110.190
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PizzaWebApp.Models", "PizzaWebApp.Models\PizzaWebApp.Models.csproj", "{046EEC8A-EF9B-4B31-97DA-5F44543A7D4E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PizzaWebApp.Models", "PizzaWebApp.Models\PizzaWebApp.Models.csproj", "{046EEC8A-EF9B-4B31-97DA-5F44543A7D4E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PizzaWebApp.DAL", "PizzaWebApp.DAL\PizzaWebApp.DAL.csproj", "{E203269D-3886-4072-8CDD-1BB5445322CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PizzaWebApp.DAL", "PizzaWebApp.DAL\PizzaWebApp.DAL.csproj", "{E203269D-3886-4072-8CDD-1BB5445322CE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PizzaWebApp.Web", "PizzaWebApp.Web\PizzaWebApp.Web.csproj", "{BE87AA28-D756-4178-9362-0087A7AC0F27}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{E203269D-3886-4072-8CDD-1BB5445322CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E203269D-3886-4072-8CDD-1BB5445322CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E203269D-3886-4072-8CDD-1BB5445322CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE87AA28-D756-4178-9362-0087A7AC0F27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE87AA28-D756-4178-9362-0087A7AC0F27}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE87AA28-D756-4178-9362-0087A7AC0F27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE87AA28-D756-4178-9362-0087A7AC0F27}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

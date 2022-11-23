@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
@@ -15,6 +16,7 @@ namespace PizzaWebApp.Models.Entities
 
         public double Weight { get; set; }
 
+        [Precision(5,2)]
         public decimal Price { get; set; }
 
         [JsonIgnore]
