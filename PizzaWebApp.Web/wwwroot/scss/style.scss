@@ -1,3 +1,15 @@
-*{
-    box-sizing: border-box;
+@import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Roboto&display=swap');
+@import 'header';
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background: url("../image/body-bg.jpg") center;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.container {
+    max-width: 1170px;
+    width: 100%;
+    margin: 0 auto;
 }

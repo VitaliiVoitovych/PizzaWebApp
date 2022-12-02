@@ -1,3 +1,95 @@
-* {
-  box-sizing: border-box;
+@import url("https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Roboto&display=swap");
+.header {
+  width: 100%;
+  background-color: #28292b;
+  position: fixed;
+  z-index: 50;
+  top: 0;
+  left: 0;
+  color: #ecf0f1;
+}
+.header__navbar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+}
+.header__logo {
+  display: flex;
+  align-items: center;
+}
+.header__title {
+  font-size: 32px;
+  font-family: "Kaushan Script", cursive;
+}
+.header__menu {
+  display: flex;
+  align-items: center;
+}
+.header__link {
+  font-size: 18px;
+  color: #ecf0f1;
+  position: relative;
+  transition: all 0.5s;
+  padding: 5px 0;
+  margin: 0 0 0 10px;
+}
+.header__link::before {
+  content: "";
+  height: 2px;
+  width: 100%;
+  position: absolute;
+  background: #b77e4b;
+  bottom: -5px;
+  transform: scaleX(0);
+  transition: all 0.5s;
+}
+.header__link:hover {
+  transform: translateY(-7px);
+}
+.header__link:hover::before {
+  transform: scaleX(1);
+}
+.header__btn {
+  width: 50px;
+  height: 50px;
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+.header__btn-line {
+  width: 25px;
+  height: 3px;
+  background: #ecf0f1;
+  position: relative;
+}
+.header__btn-line::before, .header__btn-line::after {
+  content: "";
+  transform-origin: 50% 50%;
+  display: block;
+  position: absolute;
+  width: 25px;
+  height: 3px;
+  background: #ecf0f1;
+  transition: all 0.3s;
+}
+.header__btn-line::before {
+  transform: translateY(-7px);
+}
+.header__btn-line::after {
+  transform: translateY(7px);
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  background: url("../image/body-bg.jpg") center;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.container {
+  max-width: 1170px;
+  width: 100%;
+  margin: 0 auto;
 }
