@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Roboto&display=swap');
 @import 'header';
+@import 'hero';
 
 body {
     font-family: 'Roboto', sans-serif;
@@ -12,4 +13,13 @@ body {
     max-width: 1170px;
     width: 100%;
     margin: 0 auto;
+}
+
+.btn {
+    width: 135px;
+    height: 45px;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: 700;
+    transition: all 0.3s linear;
 }

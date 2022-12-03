@@ -1,7 +1,7 @@
 const headerButton = document.querySelector(".header__btn");
 const headerMenu = document.querySelector(".header__menu");
 
-button.onclick = clicked;
+headerButton.onclick = clicked;
 
 function clicked() {
     headerMenu.classList.toggle('active-menu');
