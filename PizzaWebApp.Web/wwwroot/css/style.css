@@ -7,6 +7,7 @@
   top: 0;
   left: 0;
   color: #ecf0f1;
+  font-family: "Kaushan Script", cursive;
 }
 .header__navbar {
   width: 100%;
@@ -21,14 +22,14 @@
 }
 .header__title {
   font-size: 32px;
-  font-family: "Kaushan Script", cursive;
+  font-weight: 700;
 }
 .header__menu {
   display: flex;
   align-items: center;
 }
 .header__link {
-  font-size: 18px;
+  font-size: 24px;
   color: #ecf0f1;
   position: relative;
   transition: all 0.5s;
