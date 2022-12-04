@@ -1,7 +1,7 @@
-@import url("https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Balsamiq+Sans&family=Kaushan+Script&family=Roboto&display=swap");
 .header {
   width: 100%;
-  background-color: #28292b;
+  background: #28292b;
   position: fixed;
   z-index: 50;
   top: 0;
@@ -86,6 +86,7 @@
   width: 100%;
   min-height: 230px;
   margin: 250px 0 150px 0;
+  text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.7);
 }
 .hero__body {
   display: flex;
@@ -97,14 +98,12 @@
   font-size: 3.5rem;
   font-weight: 700;
   color: #ecf0f1;
-  text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.7);
 }
 .hero__subtitle {
   font-size: 2.5rem;
   color: #ecf0f1;
   margin: 20px 0 0 0;
   font-weight: 400;
-  text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.7);
 }
 .hero__btn {
   color: #28292b;
@@ -118,9 +117,45 @@
   color: #ecf0f1;
 }
 
+.about-us {
+  width: 100%;
+  background: #28292b;
+  min-height: 350px;
+}
+.about-us__row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.about-us__item {
+  flex: 0 1 50%;
+  justify-content: center;
+  padding: 30px;
+}
+.about-us__item img {
+  padding: 30px;
+}
+.about-us__info {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.about-us__title {
+  color: #ecf0f1;
+  margin: 0 0 20px 0;
+}
+.about-us__text {
+  margin: 20px 0 0 0;
+  font-size: 18px;
+  line-height: 1.5;
+  color: #d4d8d9;
+}
+
 body {
-  font-family: "Roboto", sans-serif;
-  background: url("../image/body-bg.jpg") center;
+  font-family: "Baslamiq Sans", cursive;
+  background: url("../image/body-bg.webp") center;
   background-size: cover;
   background-attachment: fixed;
 }
@@ -138,4 +173,22 @@ body {
   font-size: 18px;
   font-weight: 700;
   transition: all 0.3s linear;
+}
+
+.line {
+  width: 120px;
+  height: 3px;
+  margin: 0 15px 0 0;
+  background-color: #b77e4b;
+}
+
+.title {
+  font-family: "Kaushan Script", cursive;
+  font-size: 3rem;
+  font-weight: 700;
+}
+
+.flexible-img {
+  width: 100%;
+  height: auto;
 }
