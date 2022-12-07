@@ -153,6 +153,50 @@
   color: #d4d8d9;
 }
 
+.menu {
+  width: 100%;
+  min-height: 100px;
+  background: #ecf0f1;
+}
+.menu__body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.menu__title {
+  color: #28292b;
+  margin: 0 0 15px 0;
+  text-align: center;
+}
+.menu__button {
+  background: #174536;
+  color: #ecf0f1;
+}
+.menu__button:hover {
+  background: #215C48;
+}
+.menu table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 15px 0 15px 0;
+  text-align: center;
+}
+.menu table thead {
+  font-family: "Kaushan Script", cursive;
+  font-size: 24px;
+  font-weight: 700;
+}
+.menu table tbody {
+  font-size: 18px;
+}
+.menu table td {
+  width: 20%;
+  border: 1px solid #28292b;
+  color: #28292b;
+  padding: 5px;
+  overflow-wrap: break-word;
+}
+
 .footer {
   width: 100%;
   background: #28292b;
