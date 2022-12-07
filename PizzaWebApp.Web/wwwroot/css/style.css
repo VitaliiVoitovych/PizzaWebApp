@@ -153,6 +153,18 @@
   color: #d4d8d9;
 }
 
+.footer {
+  width: 100%;
+  background: #28292b;
+  color: #ecf0f1;
+}
+.footer__body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80px;
+}
+
 body {
   font-family: "Baslamiq Sans", cursive;
   background: url("../image/body-bg.webp") center;
