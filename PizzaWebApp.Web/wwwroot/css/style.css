@@ -27,6 +27,7 @@
 .header__menu {
   display: flex;
   align-items: center;
+  margin-left: auto;
 }
 .header__link {
   font-size: 24px;
@@ -58,6 +59,7 @@
   display: none;
   justify-content: center;
   align-items: center;
+  margin-left: auto;
 }
 .header__btn-line {
   width: 25px;
@@ -80,6 +82,13 @@
 }
 .header__btn-line::after {
   transform: translateY(7px);
+}
+.header__cart {
+  width: 30px;
+  height: 30px;
+  order: 3;
+  margin: 0 0 0 10px;
+  z-index: 50;
 }
 
 .hero {
@@ -153,43 +162,53 @@
   color: #d4d8d9;
 }
 
-.menu {
+.menu, .cart {
   width: 100%;
   min-height: 100px;
   background: #ecf0f1;
 }
-.menu__body {
+.menu__body, .cart__body {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.menu__title {
+.menu__title, .cart__title {
   color: #28292b;
   margin: 0 0 15px 0;
   text-align: center;
 }
-.menu__button {
+.menu__button, .cart__button {
   background: #174536;
   color: #ecf0f1;
 }
-.menu__button:hover {
+.menu__button:hover, .cart__button:hover {
   background: #215C48;
 }
-.menu table {
+.menu__footer, .cart__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.menu__price, .cart__price {
+  font-size: 18px;
+  font-weight: 700;
+}
+.menu table, .cart table {
   border-collapse: collapse;
   width: 100%;
   margin: 15px 0 15px 0;
   text-align: center;
 }
-.menu table thead {
+.menu table thead, .cart table thead {
   font-family: "Kaushan Script", cursive;
   font-size: 24px;
   font-weight: 700;
 }
-.menu table tbody {
+.menu table tbody, .cart table tbody {
   font-size: 18px;
 }
-.menu table td {
+.menu table td, .cart table td {
   width: 20%;
   border: 1px solid #28292b;
   color: #28292b;

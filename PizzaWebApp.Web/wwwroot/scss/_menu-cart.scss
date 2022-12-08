@@ -1,4 +1,4 @@
-.menu {
+.menu, .cart {
     width: 100%;
     min-height: 100px;
     background: #ecf0f1;
@@ -19,6 +19,17 @@
             background: #215C48;
         }
     }
+    &__footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+    &__price {
+        font-size: 18px;
+        font-weight: 700;
+    }
+        
     table {
         border-collapse: collapse;
         width: 100%;

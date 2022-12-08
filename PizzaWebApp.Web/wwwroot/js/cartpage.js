@@ -1,28 +1,16 @@
-const headerButton = document.querySelector(".header__btn");
-const headerMenu = document.querySelector(".header__menu");
-
-headerButton.onclick = clicked;
-
-
-function clicked() {
-    headerMenu.classList.toggle('active-menu');
-    headerMenu.classList.toggle('deactive-menu');
-    headerButton.classList.toggle('active-btn');
-}
-
 async function getPizzas() {
-    const response = await fetch("/api/menu", {
+    const response = await fetch("/api/cart", {
         method: "GET",
         headers: { "Accept": "application/json" }
     });
     if (response.ok === true) {
         const pizzas = await response.json();
         const rows = document.querySelector("tbody");
-        pizzas.forEach(pizza => rows.append(row(pizza)));
+        pizzas.forEach(pizza => rows.append(rowCart(pizza)));
     }
 }
 
-function row(pizza) {
+function rowCart(pizza) {
     const tr = document.createElement("tr");
     tr.setAttribute("data-rowid", pizza.id);
 
@@ -44,9 +32,9 @@ function row(pizza) {
 
     const buttonTd = document.createElement("td");
     const button = document.createElement("button");
-    button.classList.add("menu__button");
+    button.classList.add("cart__button");
     button.classList.add("btn");
-    button.append("Buy");
+    button.append("Remove");
     buttonTd.append(button);
     tr.appendChild(buttonTd);
 

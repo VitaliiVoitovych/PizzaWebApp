@@ -15,8 +15,4 @@
     <ProjectReference Include="..\PizzaWebApp.Models\PizzaWebApp.Models.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\" />
-  </ItemGroup>
-
 </Project>
