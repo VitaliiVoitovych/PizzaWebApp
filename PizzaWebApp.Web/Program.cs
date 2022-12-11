@@ -22,14 +22,14 @@ app.UseStaticFiles();
 
 app.Map("/home", () => Results.Redirect("/"));
 
-app.MapGet("/api/menu", async (PizzaWebAppDbContext db) => await db.Pizzas?.ToListAsync());
+app.MapGet("/api/menu", async (PizzaWebAppDbContext db) => await db.Pizzas.ToListAsync());
 app.MapGet("/api/cart", (Cart cart) => cart);
 app.MapGet("/api/cart/price", (Cart cart) => cart.Price);
 
 
-app.MapPost("/api/menu/{id:int}", (int id, Cart cart) =>
+app.MapPost("/api/menu/{id:int}", async (int id, Cart cart, PizzaWebAppDbContext db) =>
 {
-    Pizza? pizza = list.FirstOrDefault(p => p.PizzaId == id);
+    Pizza? pizza = await db.Pizzas.FirstOrDefaultAsync(p => p.PizzaId == id);
 
     if (pizza == null) return Results.NotFound(new { Message = "Не знайдено"});
 

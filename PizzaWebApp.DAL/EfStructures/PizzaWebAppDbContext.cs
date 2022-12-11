@@ -5,10 +5,10 @@ namespace PizzaWebApp.DAL.EfStructures
 {
     public class PizzaWebAppDbContext : DbContext
     {
-        public DbSet<Customer>? Customers { get; set; }
-        public DbSet<Pizza>? Pizzas { get; set; }
-        public DbSet<Order>? Orders { get; set; }
-        public DbSet<Payment>? Payments { get; set; }
+        public DbSet<Customer> Customers { get; set; } = null!;
+        public DbSet<Pizza> Pizzas { get; set; } = null!;
+        public DbSet<Order> Orders { get; set; } = null!;
+        public DbSet<Payment> Payments { get; set; } = null!;
 
         public PizzaWebAppDbContext(DbContextOptions<PizzaWebAppDbContext> options)
             : base(options)
