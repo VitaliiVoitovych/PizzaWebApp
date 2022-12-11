@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace PizzaWebApp.Models
 {
-    public class Cart : IEnumerable
+    public class Cart : IEnumerable<Pizza>
     {
         private Dictionary<Pizza, int> pizzas;
 
@@ -11,6 +11,8 @@ namespace PizzaWebApp.Models
         {
             pizzas = new Dictionary<Pizza, int>();
         }
+
+        public decimal Price => pizzas.Sum(p => p.Key.Price * p.Value);
 
         public void AddItem(Pizza pizza)
         {
@@ -20,11 +22,23 @@ namespace PizzaWebApp.Models
             }
             else
             {
-                pizzas.TryAdd(pizza, 1);
+                pizzas.Add(pizza, 1);
             }
         }
 
-        public IEnumerator GetEnumerator()
+        public void RemoveItem(Pizza pizza)
+        {
+            if (pizzas.TryGetValue(pizza, out int count))
+            {
+                pizzas[pizza] = --count;
+                if (count == 0)
+                {
+                    pizzas.Remove(pizza);
+                }
+            }
+        }
+
+        public IEnumerator<Pizza> GetEnumerator()
         {
             foreach (var item in pizzas)
             {
@@ -33,6 +47,11 @@ namespace PizzaWebApp.Models
                     yield return item.Key;
                 }
             }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 }

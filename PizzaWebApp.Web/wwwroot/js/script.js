@@ -22,9 +22,23 @@ async function getPizzas() {
     }
 }
 
+async function addToCart(id) {
+    const response = await fetch(`/api/menu/${id}`, {
+        method: "POST",
+        headers: { "Accept": "application/json" }
+    });
+    if (response.ok === true) {
+        const pizza = await response.json();
+    }
+    else {
+        const error = await response.json();
+        console.log(error);
+    }
+}
+
 function row(pizza) {
     const tr = document.createElement("tr");
-    tr.setAttribute("data-rowid", pizza.id);
+    tr.setAttribute("data-rowid", pizza.pizzaId);
 
     const nameTd = document.createElement("td");
     nameTd.append(pizza.name);
@@ -46,6 +60,9 @@ function row(pizza) {
     const button = document.createElement("button");
     button.classList.add("menu__button");
     button.classList.add("btn");
+
+    button.addEventListener("click", async () => await addToCart(pizza.pizzaId));
+
     button.append("Buy");
     buttonTd.append(button);
     tr.appendChild(buttonTd);
