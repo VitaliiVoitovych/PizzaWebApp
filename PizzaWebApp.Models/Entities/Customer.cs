@@ -14,6 +14,12 @@ namespace PizzaWebApp.Models.Entities
         [Required, StringLength(50)]
         public string LastName { get; set; } = "Customer";
 
+        [Required, StringLength(50)]
+        public string Email { get; set; } = "Email";
+
+        [Required, StringLength(50)]
+        public string Password { get; set; } = "Password";
+
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public string? FullName { get; set; }
 

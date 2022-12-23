@@ -51,36 +51,6 @@
             }
         }
     }
-    &__btn {
-        width: 50px;
-        height: 50px;
-        display: none;
-        justify-content: center;
-        align-items: center;
-        margin-left: auto;
-        &-line {
-            width: 25px;
-            height: 3px;
-            background: #ecf0f1;
-            position: relative;
-            &::before, &::after {
-                content: "";
-                transform-origin: 50% 50%;
-                display: block;
-                position: absolute;
-                width: 25px;
-                height: 3px;
-                background: #ecf0f1;
-                transition: all 0.3s;
-            }
-            &::before {
-                transform: translateY(-7px);
-            }
-            &::after {
-                transform: translateY(7px);
-            }
-        }
-    }
     &__cart {
         width: 30px;
         height: 30px;

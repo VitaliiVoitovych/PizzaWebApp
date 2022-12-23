@@ -21,6 +21,8 @@ app.UseDefaultFiles();
 app.UseStaticFiles();
 
 app.Map("/home", () => Results.Redirect("/"));
+app.Map("/cart", async (HttpContext context) =>
+    await context.Response.WriteAsync(File.ReadAllText("wwwroot/cart.html")));
 
 app.MapGet("/api/menu", async (PizzaWebAppDbContext db) => await db.Pizzas.ToListAsync());
 app.MapGet("/api/cart", (Cart cart) => cart);
