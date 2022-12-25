@@ -1,0 +1,41 @@
+.form-container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #ecf0f1;
+}
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 250px;
+    label {
+        font-size: 18px;
+        margin: 5px;
+    }
+    &__text-input {
+        font-size: 18px;
+        margin: 15px 0;
+        background: none;
+        border-bottom: 2.5px #28292b solid;
+        text-align: center;
+        width: 250px;
+    }
+    &__submit-btn {
+        color: #28292b;
+        background: #174536;
+        color: #ecf0f1;
+        cursor: pointer;
+        &:hover {
+            background: #215C48;
+        }
+    }
+    &__sign-up-btn {
+        text-align: center;
+        font-size: 14px;
+        font-weight: 700;
+        margin: 20px 0 0 0;
+    }
+}

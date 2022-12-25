@@ -53,36 +53,6 @@
 .header__link:hover::before {
   transform: scaleX(1);
 }
-.header__btn {
-  width: 50px;
-  height: 50px;
-  display: none;
-  justify-content: center;
-  align-items: center;
-  margin-left: auto;
-}
-.header__btn-line {
-  width: 25px;
-  height: 3px;
-  background: #ecf0f1;
-  position: relative;
-}
-.header__btn-line::before, .header__btn-line::after {
-  content: "";
-  transform-origin: 50% 50%;
-  display: block;
-  position: absolute;
-  width: 25px;
-  height: 3px;
-  background: #ecf0f1;
-  transition: all 0.3s;
-}
-.header__btn-line::before {
-  transform: translateY(-7px);
-}
-.header__btn-line::after {
-  transform: translateY(7px);
-}
 .header__cart {
   width: 30px;
   height: 30px;
@@ -120,6 +90,10 @@
   background: #ecf0f1;
   margin: 20px 0 0 0;
   box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 }
 .hero__btn:hover {
   background: transparent;
@@ -226,6 +200,49 @@
   align-items: center;
   justify-content: center;
   height: 80px;
+}
+
+.form-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #ecf0f1;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 250px;
+}
+.form label {
+  font-size: 18px;
+  margin: 5px;
+}
+.form__text-input {
+  font-size: 18px;
+  margin: 15px 0;
+  background: none;
+  border-bottom: 2.5px #28292b solid;
+  text-align: center;
+  width: 250px;
+}
+.form__submit-btn {
+  color: #28292b;
+  background: #174536;
+  color: #ecf0f1;
+  cursor: pointer;
+}
+.form__submit-btn:hover {
+  background: #215C48;
+}
+.form__sign-up-btn {
+  text-align: center;
+  font-size: 14px;
+  font-weight: 700;
+  margin: 20px 0 0 0;
 }
 
 body {

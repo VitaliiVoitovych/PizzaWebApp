@@ -26,6 +26,10 @@
         background: #ecf0f1;
         margin: 20px 0 0 0;
         box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.7);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
         &:hover {
             background: transparent;
             color: #ecf0f1;
