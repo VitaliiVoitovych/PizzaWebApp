@@ -48,8 +48,11 @@ app.MapPost("/signup", (HttpContext context, PizzaWebAppDbContext db) =>
         string.IsNullOrWhiteSpace(form["email"]) ||
         string.IsNullOrWhiteSpace(form["password"]))
     {
-        return Results.BadRequest("Error");
+        return Results.BadRequest("Error"); // Переписати
     }
+
+    var user = db.Customers.FirstOrDefault(c => c.Email == form["email"].ToString());
+    if (user is not null) return Results.Problem("Error"); // Переписати
 
     var customer = new Customer
     {
@@ -74,7 +77,7 @@ app.MapPost("/api/menu/{id:int}", [Authorize]async (int id, Cart cart, PizzaWebA
 {
     Pizza? pizza = await db.Pizzas.FirstOrDefaultAsync(p => p.PizzaId == id);
 
-    if (pizza == null) return Results.NotFound(new { Message = "Не знайдено"});
+    if (pizza == null) return Results.NotFound(new { Message = "Не знайдено"}); // Переписати
 
     cart.AddItem(pizza);
 
@@ -85,16 +88,52 @@ app.MapDelete("/api/cart/{id:int}", (int id, Cart cart) =>
 {
     Pizza? pizza = cart.FirstOrDefault(p => p.PizzaId == id);
 
-    if (pizza == null) return Results.NotFound(new { Message = "Не знайдено" });
+    if (pizza == null) return Results.NotFound(new { Message = "Не знайдено" }); // Переписати
 
     cart.RemoveItem(pizza);
 
     return Results.Json(pizza);
 });
 
+// Можливо переписати
+app.MapPost("/api/cart/payment", async(Cart cart, HttpContext context, PizzaWebAppDbContext db) =>
+{
+    if (cart.Any() == false)
+    {
+        return Results.BadRequest(new { Message = "Error"}); // Переписати
+    }
+    var login = context.User.Identity?.Name;
+    Customer customer = await db.Customers.FirstAsync(c => c.Email == login);
+
+    var order = new Order
+    {
+        CustomerId = customer.CustomerId,
+        OrderDate = DateTime.Now,
+    };
+
+    db.Orders.Add(order);
+    db.SaveChanges();
+
+    foreach (var item in cart)
+    {
+        var payment = new Payment
+        {
+            OrderId = order.OrderId,
+            PizzaId = item.PizzaId,
+            PaymentDate = DateTime.Now,
+        };
+        db.Payments.Add(payment);
+    }
+
+    db.SaveChanges();
+
+    return Results.Json(cart);
+});
+
 app.MapGet("/login", async (HttpContext context) =>
     await context.Response.WriteAsync(File.ReadAllText("wwwroot/login.html")));
 
+// TODO: Кнопка для виходу
 app.MapGet("/logout", async (HttpContext context) =>
 {
     await context.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
@@ -108,7 +147,7 @@ app.MapPost("/login", async (HttpContext context, PizzaWebAppDbContext db) =>
     if (string.IsNullOrWhiteSpace(form["email"]) ||
         string.IsNullOrWhiteSpace(form["password"]))
     {
-        return Results.BadRequest("Error");
+        return Results.BadRequest("Error"); // Переписати
     }
     string email = form["email"].ToString();
     string password = form["password"].ToString();

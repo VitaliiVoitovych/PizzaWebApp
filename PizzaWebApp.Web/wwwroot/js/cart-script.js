@@ -38,6 +38,21 @@ async function removeFromCart(id) {
     }
 }
 
+async function payment() {
+    const response = await fetch("/api/cart/payment", {
+        method: "POST",
+        headers: { "Accept": "application/json"}
+    });
+    if (response.ok === true) {
+        const  pizzas = await response.json();
+        pizzas.forEach(pizza => removeFromCart(pizza.pizzaId));
+    }
+    else {
+        const error = await response.json();
+        alert(error.message);
+    }
+}
+
 function rowCart(pizza) {
     const tr = document.createElement("tr");
     tr.setAttribute("data-rowid", pizza.pizzaId);
@@ -70,6 +85,9 @@ function rowCart(pizza) {
 
     return tr;
 }
+
+const paymentBtn = document.querySelector('.cart__payment-btn');
+paymentBtn.addEventListener("click", async() => await payment());
 
 getPizzas();
 getPrice();
