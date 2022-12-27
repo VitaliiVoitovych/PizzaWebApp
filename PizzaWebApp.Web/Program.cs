@@ -48,13 +48,13 @@ app.MapPost("/signup", (HttpContext context, PizzaWebAppDbContext db) =>
         string.IsNullOrWhiteSpace(form["email"]) ||
         string.IsNullOrWhiteSpace(form["password"]))
     {
-        return Results.BadRequest("Error"); // Переписати
+        return Results.BadRequest("The field(s) is empty");
     }
 
-    var user = db.Customers.FirstOrDefault(c => c.Email == form["email"].ToString());
-    if (user is not null) return Results.Problem("Error"); // Переписати
+    var customer = db.Customers.FirstOrDefault(c => c.Email == form["email"].ToString());
+    if (customer is not null) return Results.Problem("This user already exists");
 
-    var customer = new Customer
+    customer = new Customer
     {
         FirstName = form["firstname"].ToString(),
         LastName = form["lastname"].ToString(),
@@ -76,8 +76,7 @@ app.MapGet("/api/cart/price", (Cart cart) => cart.Price);
 app.MapPost("/api/menu/{id:int}", [Authorize]async (int id, Cart cart, PizzaWebAppDbContext db) =>
 {
     Pizza? pizza = await db.Pizzas.FirstOrDefaultAsync(p => p.PizzaId == id);
-
-    if (pizza == null) return Results.NotFound(new { Message = "Не знайдено"}); // Переписати
+    if (pizza == null) return Results.NotFound(new { Message = "Not found" });
 
     cart.AddItem(pizza);
 
@@ -87,8 +86,7 @@ app.MapPost("/api/menu/{id:int}", [Authorize]async (int id, Cart cart, PizzaWebA
 app.MapDelete("/api/cart/{id:int}", (int id, Cart cart) =>
 {
     Pizza? pizza = cart.FirstOrDefault(p => p.PizzaId == id);
-
-    if (pizza == null) return Results.NotFound(new { Message = "Не знайдено" }); // Переписати
+    if (pizza == null) return Results.NotFound(new { Message = "Not found" });
 
     cart.RemoveItem(pizza);
 
@@ -100,8 +98,9 @@ app.MapPost("/api/cart/payment", async(Cart cart, HttpContext context, PizzaWebA
 {
     if (cart.Any() == false)
     {
-        return Results.BadRequest(new { Message = "Error"}); // Переписати
+        return Results.BadRequest(new { Message = "Cart is empty"});
     }
+
     var login = context.User.Identity?.Name;
     Customer customer = await db.Customers.FirstAsync(c => c.Email == login);
 
@@ -133,7 +132,6 @@ app.MapPost("/api/cart/payment", async(Cart cart, HttpContext context, PizzaWebA
 app.MapGet("/login", async (HttpContext context) =>
     await context.Response.WriteAsync(File.ReadAllText("wwwroot/login.html")));
 
-// TODO: Кнопка для виходу
 app.MapGet("/logout", async (HttpContext context) =>
 {
     await context.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
@@ -147,11 +145,10 @@ app.MapPost("/login", async (HttpContext context, PizzaWebAppDbContext db) =>
     if (string.IsNullOrWhiteSpace(form["email"]) ||
         string.IsNullOrWhiteSpace(form["password"]))
     {
-        return Results.BadRequest("Error"); // Переписати
+        return Results.BadRequest("The field(s) is empty");
     }
     string email = form["email"].ToString();
     string password = form["password"].ToString();
-
 
     Customer? customer = db.Customers.FirstOrDefault(p => p.Email == email && p.Password == password);
     if (customer is null) return Results.Unauthorized();
