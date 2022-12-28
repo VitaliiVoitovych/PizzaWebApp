@@ -45,13 +45,13 @@ function row(pizza) {
     tr.append(priceTd);
 
     const buttonTd = document.createElement("td");
+    
     const button = document.createElement("button");
     button.classList.add("menu__button");
     button.classList.add("btn");
-
     button.addEventListener("click", async () => await addToCart(pizza.pizzaId));
-
     button.append("Buy");
+    
     buttonTd.append(button);
     tr.appendChild(buttonTd);
 

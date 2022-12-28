@@ -74,12 +74,12 @@ function rowCart(pizza) {
     tr.append(priceTd);
 
     const buttonTd = document.createElement("td");
+
     const button = document.createElement("button");
     button.classList.add("cart__button");
     button.classList.add("btn");
     button.append("Remove");
     button.addEventListener("click", async() => await removeFromCart(pizza.pizzaId));
-
     buttonTd.append(button);
     tr.appendChild(buttonTd);
 
