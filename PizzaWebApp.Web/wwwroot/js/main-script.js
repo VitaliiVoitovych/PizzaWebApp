@@ -4,4 +4,43 @@ function loadHeader() {
         .then(text => document.querySelector(".header").innerHTML = text);
 }
 
+function rowPizzaInfo(pizza) {
+    const tr = document.createElement("tr");
+    tr.setAttribute("data-rowid", pizza.pizzaId);
+
+    const nameTd = document.createElement("td");
+    nameTd.append(pizza.name);
+    tr.append(nameTd);
+
+    const sizeTd = document.createElement("td");
+    sizeTd.append(pizza.size);
+    tr.append(sizeTd);
+
+    const weightTd = document.createElement("td");
+    weightTd.append(pizza.weight);
+    tr.append(weightTd);
+
+    const priceTd = document.createElement("td");
+    priceTd.append(pizza.price);
+    tr.append(priceTd);
+
+    return tr;
+}
+
+/**
+ * 
+ * @param {String} request 
+ */
+async function getPizzas(request, rowFunc) {
+    const response = await fetch(request, {
+        method: "GET",
+        headers: { "Accept": "application/json" }
+    });
+    if (response.ok === true) {
+        const pizzas = await response.json();
+        const rows = document.querySelector("tbody");
+        pizzas.forEach(pizza => rows.append(rowFunc(pizza)));
+    }
+}
+
 loadHeader();

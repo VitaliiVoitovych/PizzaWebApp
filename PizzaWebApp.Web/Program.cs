@@ -93,7 +93,6 @@ app.MapDelete("/api/cart/{id:int}", (int id, Cart cart) =>
     return Results.Json(pizza);
 });
 
-// Можливо переписати
 app.MapPost("/api/cart/payment", async(Cart cart, HttpContext context, PizzaWebAppDbContext db) =>
 {
     if (cart.Any() == false)

@@ -1,15 +1,3 @@
-async function getPizzas() {
-    const response = await fetch("/api/cart", {
-        method: "GET",
-        headers: { "Accept": "application/json" }
-    });
-    if (response.ok === true) {
-        const pizzas = await response.json();
-        const rows = document.querySelector("tbody");
-        pizzas.forEach(pizza => rows.append(rowCart(pizza)));
-    }
-}
-
 async function getPrice() {
     const response = await fetch("/api/cart/price", {
         method: "GET",
@@ -54,24 +42,7 @@ async function payment() {
 }
 
 function rowCart(pizza) {
-    const tr = document.createElement("tr");
-    tr.setAttribute("data-rowid", pizza.pizzaId);
-
-    const nameTd = document.createElement("td");
-    nameTd.append(pizza.name);
-    tr.append(nameTd);
-
-    const sizeTd = document.createElement("td");
-    sizeTd.append(pizza.size);
-    tr.append(sizeTd);
-
-    const weightTd = document.createElement("td");
-    weightTd.append(pizza.weight);
-    tr.append(weightTd);
-
-    const priceTd = document.createElement("td");
-    priceTd.append(pizza.price);
-    tr.append(priceTd);
+    const tr = rowPizzaInfo(pizza);
 
     const buttonTd = document.createElement("td");
 
@@ -80,6 +51,7 @@ function rowCart(pizza) {
     button.classList.add("btn");
     button.append("Remove");
     button.addEventListener("click", async() => await removeFromCart(pizza.pizzaId));
+    
     buttonTd.append(button);
     tr.appendChild(buttonTd);
 
@@ -89,5 +61,5 @@ function rowCart(pizza) {
 const paymentBtn = document.querySelector('.cart__payment-btn');
 paymentBtn.addEventListener("click", async() => await payment());
 
-getPizzas();
+getPizzas("/api/cart", rowCart);
 getPrice();
