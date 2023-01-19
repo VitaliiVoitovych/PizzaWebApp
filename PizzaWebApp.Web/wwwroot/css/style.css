@@ -233,6 +233,12 @@
   text-align: center;
   width: 250px;
 }
+.form__select {
+  background: transparent;
+  font-size: 18px;
+  text-align: center;
+  width: 250px;
+}
 .form__submit-btn {
   color: #28292b;
   background: #174536;

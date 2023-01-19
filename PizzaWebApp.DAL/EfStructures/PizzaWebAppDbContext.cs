@@ -5,7 +5,7 @@ namespace PizzaWebApp.DAL.EfStructures
 {
     public class PizzaWebAppDbContext : DbContext
     {
-        public DbSet<Customer> Customers { get; set; } = null!;
+        public DbSet<Person> People { get; set; } = null!;
         public DbSet<Pizza> Pizzas { get; set; } = null!;
         public DbSet<Order> Orders { get; set; } = null!;
         public DbSet<Payment> Payments { get; set; } = null!;
@@ -18,10 +18,10 @@ namespace PizzaWebApp.DAL.EfStructures
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Customer>(entity =>
+            modelBuilder.Entity<Person>(entity =>
             {
                 entity.Property(c => c.FullName)
-                      .HasColumnName(nameof(Customer.FullName))
+                      .HasColumnName(nameof(Person.FullName))
                       .HasComputedColumnSql("[LastName] + ' ' + [FirstName]");
             });
         }

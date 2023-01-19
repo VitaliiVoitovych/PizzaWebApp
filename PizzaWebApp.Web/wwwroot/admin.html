@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PizzaWebApp</title>
+
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Header block -->
+    <header class="header">
+        
+    </header>
+
+    
+    <div class="form-container">
+        <div class="form">
+            <p>
+                <label>Name</label> <br>
+                <input type="text" name="name" class="form__text-input" id="pizzaName">
+            </p>
+            <p>
+                <label>Weight</label> <br>
+                <input type="number" name="weight" class="form__text-input" min="100" id="pizzaWeight" step=".01">
+            </p>
+            <p style="margin-bottom: 25px;">
+                <label>Size</label> <br>
+                <select name="size" id="pizzaSize" class="form__select">
+                    <option value="12">Small</option>
+                    <option value="18">Medium</option>
+                    <option value="24">Large</option>
+                </select>
+            </p>
+            <p>
+                <label>Price</label> <br>
+                <input type="number" name="price" class="form__text-input" min="10" step=".01" id="pizzaPrice">
+            </p>
+            <button class="login-main__btn btn" id="addpizza-btn">Add pizza</button>
+        </div>
+    </div>
+
+    <script src="/js/main-script.js"></script>
+    <script src="/js/admin-script.js"></script>
+</body>
+</html>

@@ -9,11 +9,11 @@ namespace PizzaWebApp.Models.Entities
 
         public DateTime OrderDate { get; set; }
 
-        public int CustomerId { get; set; }
+        public int PersonId { get; set; }
 
-        [ForeignKey(nameof(CustomerId))]
-        [InverseProperty(nameof(Customer.Orders))]
-        public Customer? CustomerNavigation { get; set; }
+        [ForeignKey(nameof(PersonId))]
+        [InverseProperty(nameof(Person.Orders))]
+        public Person? PersonNavigation { get; set; }
 
         [JsonIgnore]
         [InverseProperty(nameof(Payment.OrderNavigation))]

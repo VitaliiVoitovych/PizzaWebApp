@@ -6,10 +6,10 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
+using System.Text.Json;
+using PizzaWebApp.Web.Services;
 
 var builder = WebApplication.CreateBuilder(args);
-
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
@@ -18,6 +18,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     });
 builder.Services.AddAuthorization();
 
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<PizzaWebAppDbContext>(options => options.UseSqlServer(connectionString));
 builder.Services.AddSingleton<Cart>();
 
@@ -35,10 +36,13 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.Map("/home", () => Results.Redirect("/"));
-app.Map("/cart", [Authorize] async (HttpContext context) =>
+app.Map("/cart", [Authorize(Roles = "User")] async (HttpContext context) =>
     await context.Response.WriteAsync(File.ReadAllText("wwwroot/cart.html")));
 app.Map("/signup", async (HttpContext context) =>
     await context.Response.WriteAsync(File.ReadAllText("wwwroot/signup.html")));
+
+app.Map("/admin", [Authorize(Roles = "Admin")] async(HttpContext context) =>
+    await context.Response.WriteAsync(File.ReadAllText("wwwroot/admin.html")));
 
 app.MapPost("/signup", (HttpContext context, PizzaWebAppDbContext db) =>
 {
@@ -51,10 +55,10 @@ app.MapPost("/signup", (HttpContext context, PizzaWebAppDbContext db) =>
         return Results.BadRequest("The field(s) is empty");
     }
 
-    var customer = db.Customers.FirstOrDefault(c => c.Email == form["email"].ToString());
-    if (customer is not null) return Results.Problem("This user already exists");
+    var person = db.People.FirstOrDefault(c => c.Email == form["email"].ToString());
+    if (person is not null) return Results.Problem("This user already exists");
 
-    customer = new Customer
+    person = new Person
     {
         FirstName = form["firstname"].ToString(),
         LastName = form["lastname"].ToString(),
@@ -62,7 +66,7 @@ app.MapPost("/signup", (HttpContext context, PizzaWebAppDbContext db) =>
         Password = form["password"].ToString(),
     };
 
-    db.Customers.Add(customer);
+    db.People.Add(person);
     db.SaveChanges();
 
     return Results.Redirect("/");
@@ -73,7 +77,7 @@ app.MapGet("/api/cart", (Cart cart) => cart);
 app.MapGet("/api/cart/price", (Cart cart) => cart.Price);
 
 
-app.MapPost("/api/menu/{id:int}", [Authorize]async (int id, Cart cart, PizzaWebAppDbContext db) =>
+app.MapPost("/api/menu/{id:int}", [Authorize(Roles = "User")] async(int id, Cart cart, PizzaWebAppDbContext db) =>
 {
     Pizza? pizza = await db.Pizzas.FirstOrDefaultAsync(p => p.PizzaId == id);
     if (pizza == null) return Results.NotFound(new { Message = "Not found" });
@@ -101,11 +105,11 @@ app.MapPost("/api/cart/payment", async(Cart cart, HttpContext context, PizzaWebA
     }
 
     var login = context.User.Identity?.Name;
-    Customer customer = await db.Customers.FirstAsync(c => c.Email == login);
+    Person person = await db.People.FirstAsync(c => c.Email == login);
 
     var order = new Order
     {
-        CustomerId = customer.CustomerId,
+        PersonId = person.PersonId,
         OrderDate = DateTime.Now,
     };
 
@@ -149,13 +153,38 @@ app.MapPost("/login", async (HttpContext context, PizzaWebAppDbContext db) =>
     string email = form["email"].ToString();
     string password = form["password"].ToString();
 
-    Customer? customer = db.Customers.FirstOrDefault(p => p.Email == email && p.Password == password);
-    if (customer is null) return Results.Unauthorized();
+    Person? person = db.People.FirstOrDefault(p => p.Email == email && p.Password == password);
+    if (person is null) return Results.Unauthorized();
 
-    var claims = new List<Claim> { new Claim(ClaimTypes.Name, customer.Email) };
+    var claims = new List<Claim> 
+    { 
+        new Claim(ClaimTypes.Name, person.Email),
+        new Claim(ClaimTypes.Role, person.Role),
+    };
     ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, "Cookies");
     await context.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
     return Results.Redirect("/");
+});
+
+app.MapPost("/api/admin/addpizza", async (HttpContext context, PizzaWebAppDbContext db) =>
+{
+    Pizza? pizza;
+    try
+    {
+        var jsonOptions = new JsonSerializerOptions();
+        jsonOptions.Converters.Add(new PizzaConverter());
+        pizza = await context.Request.ReadFromJsonAsync<Pizza>(jsonOptions);
+        if (pizza is null) return Results.BadRequest(new { Message = "Pizza is null" });
+    }
+    catch (Exception e)
+    {
+        return Results.BadRequest(new { e.Message });
+    }
+
+    db.Pizzas.Add(pizza);
+    db.SaveChanges();
+
+    return Results.Json(pizza);
 });
 
 app.Run();
