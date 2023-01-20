@@ -2,6 +2,7 @@ function loadHeader() {
     fetch("header.html")
         .then(response => response.text())
         .then(text => document.querySelector(".header").innerHTML = text);
+    setAdminPanelButton();
 }
 
 function rowPizzaInfo(pizza) {
@@ -40,6 +41,25 @@ async function getPizzas(request, rowFunc) {
         const pizzas = await response.json();
         const rows = document.querySelector("tbody");
         pizzas.forEach(pizza => rows.append(rowFunc(pizza)));
+    }
+}
+
+async function setAdminPanelButton() {
+    const response = await fetch("/api/isadmin", {
+        method: "GET",
+        headers: { "Accept": "application/json" }
+    });
+    // ???
+    let isAdmin = await response.json();
+    if (isAdmin) {
+        var adminBtn = document.querySelector(".header__admin");
+        console.log(adminBtn);
+        if (adminBtn == null) {
+            await setAdminPanelButton();
+        }
+        else {
+            adminBtn.style.display = "block";
+        }
     }
 }
 

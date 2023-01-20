@@ -53,7 +53,7 @@
 .header__link:hover::before {
   transform: scaleX(1);
 }
-.header__cart {
+.header__cart, .header__admin {
   width: 30px;
   height: 30px;
   order: 3;

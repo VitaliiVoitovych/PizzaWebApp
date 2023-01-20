@@ -187,4 +187,10 @@ app.MapPost("/api/admin/addpizza", async (HttpContext context, PizzaWebAppDbCont
     return Results.Json(pizza);
 });
 
+app.MapGet("/api/isadmin", (HttpContext context) =>
+{
+    var isAdmin = context.User.IsInRole("Admin");
+    return Results.Json(isAdmin);
+});
+
 app.Run();
