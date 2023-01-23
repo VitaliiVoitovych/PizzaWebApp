@@ -18,6 +18,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     });
 builder.Services.AddAuthorization();
 
+// Connect database
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<PizzaWebAppDbContext>(options => options.UseSqlServer(connectionString));
 builder.Services.AddSingleton<Cart>();
@@ -44,6 +45,7 @@ app.Map("/signup", async (HttpContext context) =>
 app.Map("/admin", [Authorize(Roles = "Admin")] async(HttpContext context) =>
     await context.Response.WriteAsync(File.ReadAllText("wwwroot/admin.html")));
 
+// Create and add new user to database
 app.MapPost("/signup", (HttpContext context, PizzaWebAppDbContext db) =>
 {
     var form = context.Request.Form;
@@ -72,11 +74,14 @@ app.MapPost("/signup", (HttpContext context, PizzaWebAppDbContext db) =>
     return Results.Redirect("/");
 });
 
+// Load menu
 app.MapGet("/api/menu", async (PizzaWebAppDbContext db) => await db.Pizzas.ToListAsync());
+// Load cart
 app.MapGet("/api/cart", (Cart cart) => cart);
+// Load total price in cart
 app.MapGet("/api/cart/price", (Cart cart) => cart.Price);
 
-
+// Add pizza to cart
 app.MapPost("/api/menu/{id:int}", [Authorize(Roles = "User")] async(int id, Cart cart, PizzaWebAppDbContext db) =>
 {
     Pizza? pizza = await db.Pizzas.FirstOrDefaultAsync(p => p.PizzaId == id);
@@ -87,6 +92,7 @@ app.MapPost("/api/menu/{id:int}", [Authorize(Roles = "User")] async(int id, Cart
     return Results.Json(pizza);
 });
 
+// Remove pizza from cart
 app.MapDelete("/api/cart/{id:int}", (int id, Cart cart) =>
 {
     Pizza? pizza = cart.FirstOrDefault(p => p.PizzaId == id);
@@ -97,6 +103,7 @@ app.MapDelete("/api/cart/{id:int}", (int id, Cart cart) =>
     return Results.Json(pizza);
 });
 
+// Payment 
 app.MapPost("/api/cart/payment", async(Cart cart, HttpContext context, PizzaWebAppDbContext db) =>
 {
     if (cart.Any() == false)
@@ -135,12 +142,14 @@ app.MapPost("/api/cart/payment", async(Cart cart, HttpContext context, PizzaWebA
 app.MapGet("/login", async (HttpContext context) =>
     await context.Response.WriteAsync(File.ReadAllText("wwwroot/login.html")));
 
+// Remove authentication cookie
 app.MapGet("/logout", async (HttpContext context) =>
 {
     await context.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
     return Results.Redirect("/login");
 });
 
+// Create authentication cookie 
 app.MapPost("/login", async (HttpContext context, PizzaWebAppDbContext db) =>
 {
     var form = context.Request.Form;
@@ -166,6 +175,7 @@ app.MapPost("/login", async (HttpContext context, PizzaWebAppDbContext db) =>
     return Results.Redirect("/");
 });
 
+// Add new pizza to database
 app.MapPost("/api/admin/addpizza", async (HttpContext context, PizzaWebAppDbContext db) =>
 {
     Pizza? pizza;
