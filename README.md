@@ -1,5 +1,5 @@
 # PizzaWebApp
-## My first project in ASP.NET Core (Minimal Api) with .NET 6
+My first project in ASP.NET Core (Minimal Api) with .NET 6
 
 ## Main page
 ![alt](https://github.com/Vitalii-Voitovych/PizzaWebApp/blob/master/images/first.jpg)
